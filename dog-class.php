@@ -12,13 +12,13 @@ class Dog{
     function __construct($value1, $value2, $value3, $value4, $value5)
     {
         $name_error = $this->set_dog_name($value1) == TRUE 
-         ? 'TRUE' : 'FALSE';
+         ? 'TRUE,' : 'FALSE,';
         $breed_error = $this->set_dog_breed($value2) == TRUE 
-         ? 'TRUE' : 'FALSE';
+         ? 'TRUE,' : 'FALSE,';
         $color_error = $this->set_dog_color($value3) == TRUE 
-         ? 'TRUE' : 'FALSE';
+         ? 'TRUE,' : 'FALSE,';
         $weight_error = $this->set_dog_weight($value4) == TRUE 
-         ? 'TRUE' : 'FALSE';
+         ? 'TRUE,' : 'FALSE,';
         $gender_error = $this->set_dog_gender($value5) == TRUE 
          ? 'TRUE' : 'FALSE';
 
@@ -92,9 +92,4 @@ return "$this->dog_weight,$this->dog_breed,$this->dog_color,$this->dog_gender.";
 
 
 }
-?>
-
-
-}
-
 ?>
