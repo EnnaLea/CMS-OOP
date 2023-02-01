@@ -1,4 +1,20 @@
+<?php include("includes/header.php"); ?>
 
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+<?php include("includes/top_nav.php")?>           
+
+
+
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<?php include("includes/side_nav.php")?> 
+           
+        </nav>
+
+
+
+        <div id="page-wrapper">
 
 <div class="container-fluid">
 
@@ -6,43 +22,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            ADMIN
+                            PHOTOS
                             <small>Subheading</small>
                         </h1>
-
-<?php
-
-
-// $result_set = User::find_all_users();
-
-// while($row = mysqli_fetch_array($result_set)){
-//     echo $row['username'] . "<br>"; 
-// }
-
-// $found_user = User::find_user_by_id(2);
-
-
-
-// echo $user->id;
-
-// $users = User::find_all_users();
-
-// foreach ($users as $user) {
-//     echo $user->id . "<br>";
-// }
-
-$found_user = User::find_user_by_id(2);
-echo $found_user->username;
-
-
-
-
-
-
-?>
-
-
-
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
@@ -56,4 +38,9 @@ echo $found_user->username;
                 <!-- /.row -->
 
             </div>
-            <!-- /.container-fluid -->
+            <!-- /.container-fluid -->         
+
+        </div>
+        <!-- /#page-wrapper -->
+
+  <?php include("includes/footer.php"); ?>
