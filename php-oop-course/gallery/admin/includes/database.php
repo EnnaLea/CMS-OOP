@@ -53,11 +53,17 @@ public function escape_string($string){
 
 }
 
-// function to insert ids
-public function the_insert_id(){
-        return $this->connection->insert_id;
+// function to assign the last id in the query created at the object
+public function the_insert_id(){                
+        return mysqli_insert_id($this->connection);
+
 }
 
+
+// function to insert ids
+// public function mysqli_insert_id(){
+//         return $this->connection->insert_id;
+// }
 
 
 }

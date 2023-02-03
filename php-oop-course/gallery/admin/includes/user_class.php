@@ -3,6 +3,7 @@
 
 class User{
 
+    protected static $db_table ="users";
     public $id;
     public $username;
     public $password;
@@ -20,7 +21,7 @@ class User{
 
     public static function find_user_by_id($user_id){
         global $database;
-        $the_result_set_array = self::find_this_query("SELECT * FROM users WHERE id = $user_id LIMIT 1 ");
+        $the_result_set_array = self::find_this_query("SELECT * FROM users WHERE id = '{$user_id}' LIMIT 1 ");
 
         return !empty($the_result_set_array) ? array_shift($the_result_set_array) : false;
      
@@ -94,7 +95,92 @@ private function has_the_attribute($the_attribute){
 }
 
 
+//abtracting properties
+protected function properties(){
+
+    return get_object_vars($this);
+
 }
+
+
+
+//abrasting create/update method
+public function save(){
+    return isset($this->id) ? $this->update() : $this->create();
+}
+
+// method to create new users
+public function create(){
+    global $database;
+
+        $properties = $this->properties();
+
+        // imppolding $properties array to get the keys
+
+        $sql = "INSERT INTO " . self::$db_table .  "(" .  implode("," , array_keys($properties))       . ")";
+        // $sql .= "VALUES ('".    "(" .  implode("','" , array_keys($properties))       . ")"          . "' )";
+
+        $sql .= "VALUES ('".  implode("','" , array_keys($properties))     . "' )";
+
+        if ( $database->query($sql)) {
+
+            $this->id = $database->the_insert_id();
+            return true;
+            
+        } else {
+            return false;
+
+        }       
+}
+
+public function update(){
+        
+    global $database;
+
+    $properties = $this->properties();
+
+$sql =   "UPDATE " . self::$db_table .  " SET    " ;
+
+$sql .=  "(" .  implode("," , array_values($properties))       . ")";
+
+$sql .=  "username=   '"   .$database->escape_string($this->username)      ."', ";
+
+$sql .=  "password=   '"   .$database->escape_string($this->password)      ."', ";
+
+$sql .=  "first_name= '" .$database->escape_string($this->first_name)      ."', ";
+
+$sql .=  "last_name=  '"  .$database->escape_string($this->last_name)      ."'   ";
+
+$sql .=  " where id=  "   .$database->escape_string($this->id);
+
+$database->query($sql);
+
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+
+
+}
+
+
+    public function delete(){
+
+        global $database;
+
+        $sql = "DELETE  FROM " . self::$db_table .  "  ";
+        $sql .= " WHERE  id= "  .$database->escape_string($this->id);
+        $sql .= " LIMIT 1";
+
+        $database->query($sql);
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+
+    }
+
+
+
+}
+// end user class
+
+
+
 
 
 ?>
