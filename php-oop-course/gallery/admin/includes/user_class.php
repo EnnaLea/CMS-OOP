@@ -4,6 +4,7 @@
 class User{
 
     protected static $db_table ="users";
+    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name');
     public $id;
     public $username;
     public $password;
@@ -68,13 +69,6 @@ class User{
     public static function instatiantion($the_record){
         $the_object = new self;
 
-
-        // $the_object->id = $found_user['id'];
-        // $the_object->username = $found_user['username'];
-        // $the_object->password = $found_user['password'];
-        // $the_object->first_name = $found_user['first_name'];
-        // $the_object->last_name = $found_user['last_name'];
-
         foreach ($the_record as $the_attribute => $value) {
 
             if($the_object->has_the_attribute($the_attribute)){
@@ -96,9 +90,28 @@ private function has_the_attribute($the_attribute){
 
 
 //abtracting properties
-protected function properties(){
+protected function properties(){   
+        $properties = array();
+        foreach(self::$db_table_fields
+ as $db_field){
+    if(property_exists($this, $db_field)){
+        $properties[$db_field]= $this->$db_field;
+    }
+ }
+        return $properties;
+}
 
-    return get_object_vars($this);
+// ecscaping values properties
+protected function clean_properties(){
+        global $database;
+
+        $clean_properties = array();
+
+        foreach($this->properties() as $key => $value){
+            $clean_properties[$key] = $database->escape_string($value);
+        }
+
+        return $clean_properties;
 
 }
 
@@ -113,14 +126,13 @@ public function save(){
 public function create(){
     global $database;
 
-        $properties = $this->properties();
+        $properties = $this->clean_properties();
 
         // imppolding $properties array to get the keys
 
         $sql = "INSERT INTO " . self::$db_table .  "(" .  implode("," , array_keys($properties))       . ")";
-        // $sql .= "VALUES ('".    "(" .  implode("','" , array_keys($properties))       . ")"          . "' )";
 
-        $sql .= "VALUES ('".  implode("','" , array_keys($properties))     . "' )";
+        $sql .= "VALUES ('".  implode("','" , array_values($properties))     . "' )";
 
         if ( $database->query($sql)) {
 
@@ -133,31 +145,24 @@ public function create(){
         }       
 }
 
+
+//abstracting update method
 public function update(){
         
     global $database;
 
-    $properties = $this->properties();
+    $properties = $this->clean_properties();
+        $properties_pairs = array();
+        foreach($properties as $key => $value){
+            $properties_pairs[] = "{$key}='{$value}'";
+        }
 
 $sql =   "UPDATE " . self::$db_table .  " SET    " ;
-
-$sql .=  "(" .  implode("," , array_values($properties))       . ")";
-
-$sql .=  "username=   '"   .$database->escape_string($this->username)      ."', ";
-
-$sql .=  "password=   '"   .$database->escape_string($this->password)      ."', ";
-
-$sql .=  "first_name= '" .$database->escape_string($this->first_name)      ."', ";
-
-$sql .=  "last_name=  '"  .$database->escape_string($this->last_name)      ."'   ";
-
+$sql .= implode(", ", $properties_pairs);
 $sql .=  " where id=  "   .$database->escape_string($this->id);
-
 $database->query($sql);
 
         return (mysqli_affected_rows($database->connection) == 1) ? true : false;
-
-
 }
 
 
@@ -171,7 +176,6 @@ $database->query($sql);
 
         $database->query($sql);
         return (mysqli_affected_rows($database->connection) == 1) ? true : false;
-
     }
 
 

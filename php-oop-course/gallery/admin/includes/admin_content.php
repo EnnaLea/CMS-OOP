@@ -13,24 +13,23 @@
 <?php
 
 // instatiantion of the user object
-// $user = new User();
-
-// assign the static value
-// $user->username = "sdrt";
-// $user->password = "tore";
-// $user->first_name = "Finn";
-// $user->last_name = "Thin";
-
-// calling the method create() to create new user
-// $user->create();
+$user = new User();
+$user->username = "saph";
+$user->password = "night";
+$user->first_name = "Saphira";
+$user->last_name = "Patata";
+$user->create();
 
 
 
 
 // $user = User::find_user_by_id(4);
 // $user->delete();
-// $user = User::find_user_by_id(3);
-// $user->username = "Izu";
+// $user = User::find_user_by_id(6);
+// $user->password = "mozzi";
+// $user->first_name = "Milly";
+// $user->last_name = "Molly";
+// $user->update();
 // $user->save();
 
 // $user->username = "Milly";
