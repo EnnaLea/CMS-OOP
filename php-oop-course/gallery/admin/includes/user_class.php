@@ -15,6 +15,8 @@ class User extends Db_object
 
 
 
+
+
     public static function verify_user($username, $password)
     {
         global $database;

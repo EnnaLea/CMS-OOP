@@ -18,14 +18,20 @@
             // $user->last_name = "Cicciotto";
             // $user->create();
 
-            // $users = User::find_all();
-            // foreach ($users as $user) {
-            //     echo $user->username;
+            // $photos = Photo::find_all();
+            // foreach ($photos as $photo) {
+            //     echo $photo->title;
             // }
 
+            // $photos = new Photo();
+            // $photos->title = "Photo on the beautiful beach";
+            // $photos->description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio nostrum modi perferendis cum tenetur quae, laboriosam est officia non, enim fugiat magni placeat nemo impedit eos hic repudiandae. Nobis, officiis.";
+            // $photos->filename = "beach.jpg";
+            // $photos->type = "image";
+            // $photos->size = 12;
+            // $photos->create();
 
-
-
+            // echo INCLUDES_PATH;
             // $user = User::find_user_by_id(4);
             // $user->delete();
             // $user = User::find_user_by_id(6);
