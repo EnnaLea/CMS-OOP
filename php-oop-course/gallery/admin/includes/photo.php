@@ -42,9 +42,9 @@ class Photo extends Db_object
             return false;
         } else {
             $this->filename = basename($file['name']);
-            $this->tmp_path = basename($file['tmp_name']);
-            $this->type = basename($file['type']);
-            $this->size = basename($file['size']);
+            $this->tmp_path = $file['tmp_name'];
+            $this->type = $file['type'];
+            $this->size = $file['size'];
         }
     }
 
@@ -64,7 +64,7 @@ class Photo extends Db_object
                 return false;
             }
 
-            $target_path = SITE_ROOT . DS . 'amin' . DS . $this->upload_directory . DS . $this->filename;
+            $target_path = SITE_ROOT . DS . 'admin' . DS . $this->upload_directory . DS . $this->filename;
 
             if (file_exists($target_path)) {
                 $this->errors[] = "The file{$this->filename} already exists";

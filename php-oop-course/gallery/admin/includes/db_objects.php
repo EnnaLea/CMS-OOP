@@ -1,7 +1,11 @@
 <?php
 
 class Db_object
+
 {
+
+
+
 
     public static function find_all()
     {

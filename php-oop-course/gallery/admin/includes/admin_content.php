@@ -12,10 +12,10 @@
 
             // instatiantion of the user object
             // $user = new User();
-            // $user->username = "asm";
-            // $user->password = "ciccio";
-            // $user->first_name = "Asmar";
-            // $user->last_name = "Cicciotto";
+            // $user->username = "polpy";
+            // $user->password = "polpetta";
+            // $user->first_name = "Mina";
+            // $user->last_name = "Tigrotta";
             // $user->create();
 
             // $photos = Photo::find_all();
